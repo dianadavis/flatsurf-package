@@ -13,7 +13,7 @@ except ImportError:
 from distutils.core import setup
 from distutils.extension import Extension
 from Cython.Build import cythonize
-import os
+import sys, os
 
 from surface_dynamics.version import version
 with open("README") as f:
@@ -27,7 +27,7 @@ extensions = [
             sources = [
             os.path.join(ORIGAMIS_DIR, filename) for filename in ('origami_dense.pyx', 'normal_form.c', 'lyapunov_exponents.c')],
             libraries = ['m'],
-            include_dirs = [ORIGAMIS_DIR, SAGE_SRC],
+            include_dirs = [ORIGAMIS_DIR, SAGE_SRC] + sys.path,
             ),
 
     Extension('surface_dynamics.interval_exchanges.lyapunov_exponents',
